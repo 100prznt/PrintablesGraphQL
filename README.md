@@ -5,7 +5,7 @@ Simple implementation to get the print details on PrusaPrinters.org.
 --------------------
 
 
-## Supportet data
+## Supported data
 
 * slug
 * name
