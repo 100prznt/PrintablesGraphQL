@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+	<title>Request print details from PrusaPrinters.org</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Ruemmler, Elias">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+    	html { font-family: sans-serif; }
+    	dd { font-weight: bold;	}
+    </style>
+</head>
+<body>
+	<h1>Print details from PrusaPrinters.org</h1>
+	<dl id="details">
+	</dl>
+	<img id="image" src="" width="400px"><br>
+	<a id="link" href="" target="_blank">Show on PrusaPrinters.org</a>
+	<p id="print-id">ID: </p>
+	<script>
+		$(document).ready(function() {
+			var id = getUrlParameter('id');
+
+			if (id == false) {
+				$('#link').remove();
+				$('#print-id').remove();
+				alert("ID muss als GET Parameter übergeben werden!\nz.B. printdetail-sample.html?id=46705");
+			}
+
+			$.ajax({
+				method: "POST",
+				url: "https://www.prusaprinters.org/graphql/",
+				contentType: "application/json",
+				data: JSON.stringify({
+					operationName:"PrintProfile",
+					query: `query PrintProfile($id: ID!) {
+							print(id: $id) {
+								id
+								slug
+								name
+								user {
+									id
+									publicUsername
+									avatarFilePath
+									slug
+									badgesProfileLevel {
+										profileLevel
+									}
+									printsCount
+								}
+								ratingAvg
+								ratingCount
+								description
+								modified
+								firstPublish
+								datePublished
+								summary
+								shareCount
+								likesCount
+								makesCount
+								downloadCount
+								displayCount
+								filesCount
+								collectionsCount
+								commentCount
+								images {
+									filePath
+								}
+								thingiverseLink
+								license {
+									id
+									disallowRemixing
+								}
+							}
+						}`,
+					variables: {
+						"id": id
+					}
+				})
+			}).done(function(response) {
+				//console.log("DATA:");
+				//console.log(data);
+
+				$('#details').append("<dt>Name</dt><dd>" + response.data.print.name + "</dd>");
+				$('#details').append("<dt>Slug</dt><dd>" + response.data.print.slug + "</dd>");
+				$('#details').append("<dt>Summary</dt><dd>" + response.data.print.summary + "</dd>");
+				$('#details').append("<dt>Description</dt><dd>" + response.data.print.description + "</dd>");
+				$('#details').append("<dt>Rating</dt><dd>" + response.data.print.ratingAvg + "</dd>");
+				$('#details').append("<dt>Likes</dt><dd>" + response.data.print.likesCount + "</dd>");
+				$('#details').append("<dt>Makes</dt><dd>" + response.data.print.makesCount + "</dd>");
+				$('#details').append("<dt>Downloads</dt><dd>" + response.data.print.downloadCount + "</dd>");
+				$('#details').append("<dt>Views</dt><dd>" + response.data.print.displayCount + "</dd>");
+				$('#details').append("<dt>Collections Count</dt><dd>" + response.data.print.collectionsCount + "</dd>");
+				$('#details').append("<dt>Published</dt><dd>" + response.data.print.datePublished + "</dd>");
+				$('#details').append("<dt>Modified</dt><dd>" + response.data.print.modified + "</dd>");
+
+				$('#link').attr("href", "https://www.prusaprinters.org/de/prints/" + id + "-" + response.data.print.slug);
+				$('#image').attr("src", "https://media.prusaprinters.org/" + response.data.print.images[0].filePath);
+				$('#print-id').append(id);
+			});
+		});
+
+		var getUrlParameter = function getUrlParameter(sParam) {
+		    var sPageURL = window.location.search.substring(1),
+		        sURLVariables = sPageURL.split('&'),
+		        sParameterName,
+		        i;
+
+		    for (i = 0; i < sURLVariables.length; i++) {
+		        sParameterName = sURLVariables[i].split('=');
+
+		        if (sParameterName[0] === sParam) {
+		            return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+		        }
+		    }
+		    return false;
+		};
+	</script>
+</body>
+</html>
