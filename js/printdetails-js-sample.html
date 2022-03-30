@@ -94,7 +94,7 @@
 				$('#details').append("<dt>Published</dt><dd>" + response.data.print.datePublished + "</dd>");
 				$('#details').append("<dt>Modified</dt><dd>" + response.data.print.modified + "</dd>");
 
-				$('#link').attr("href", "https://www.printables.com/de/prints/" + id + "-" + response.data.print.slug);
+				$('#link').attr("href", "https://www.printables.com/de/model/" + id + "-" + response.data.print.slug);
 				$('#image').attr("src", "https://media.printables.com/" + response.data.print.images[0].filePath);
 				$('#print-id').append(id);
 			});
