@@ -11,11 +11,11 @@
     </style>
 </head>
 <body>
-	<h1>Print details from PrusaPrinters.org</h1>
+	<h1>Print details from Printables.com</h1>
 	<dl id="details">
 	</dl>
 	<img id="image" src="" width="400px"><br>
-	<a id="link" href="" target="_blank">Show on PrusaPrinters.org</a>
+	<a id="link" href="" target="_blank">Show on Printables.com</a>
 	<p id="print-id">ID: </p>
 	<script>
 		$(document).ready(function() {
@@ -29,7 +29,7 @@
 
 			$.ajax({
 				method: "POST",
-				url: "https://www.prusaprinters.org/graphql/",
+				url: "https://www.printables.com/graphql/",
 				contentType: "application/json",
 				data: JSON.stringify({
 					operationName:"PrintProfile",
