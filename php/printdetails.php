@@ -7,7 +7,7 @@ if (is_numeric($_GET["id"])) {
 	die();
 }
 
-$url = 'https://www.prusaprinters.org/graphql/';
+$url = 'https://www.printables.com/graphql/';
 
 $superQuery = 'query PrintProfile($id: ID!) {
 	print(id: $id) {
