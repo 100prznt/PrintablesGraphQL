@@ -1,4 +1,4 @@
-# PrusaPrintersGraphQL
+# PrintablesGraphQL
 
 Simple implementation to get the print and user details from PrusaPrinters.org.
 
