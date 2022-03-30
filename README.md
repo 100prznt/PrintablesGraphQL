@@ -1,6 +1,6 @@
 # PrintablesGraphQL
 
-Simple implementation to get the print and user details from PrusaPrinters.org.
+Simple implementation to get the print and user details from Printables.com
 
 --------------------
 
