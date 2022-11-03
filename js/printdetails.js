@@ -2,7 +2,7 @@ var id = 46705;
 
 $.ajax({
 	method: "POST",
-	url: "https://printables.com/graphql/",
+	url: "https://api.printables.com/graphql/",
 	contentType: "application/json",
 	data: JSON.stringify({
 		operationName:"PrintProfile",
