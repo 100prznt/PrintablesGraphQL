@@ -7,6 +7,8 @@ if (is_numeric($_GET["id"])) {
 	die();
 }
 
+//$url = 'https://www.prusaprinters.org/graphql/';
+//$url = 'https://www.printables.com/graphql/';
 $url = 'https://api.printables.com/graphql/';
 
 $superQuery = 'query PrintProfile($id: ID!) {
@@ -45,6 +47,9 @@ $superQuery = 'query PrintProfile($id: ID!) {
 		thingiverseLink
 		license {
 			id
+			name
+			abbreviation
+			content
 			disallowRemixing
 		}
 	}
@@ -54,7 +59,7 @@ $contentJson = json_encode(array('operationName' => 'PrintProfile', 'query' => $
 
 $options = array(
     'http' => array(
-        'header'  => "Content-type: application/json\r\n",
+        'header'  => "Content-type: application/json\r\nAccept-Language: de,en-US\r\n",
         'method'  => 'POST',
         'content' => $contentJson
     )
