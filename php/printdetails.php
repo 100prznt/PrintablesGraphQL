@@ -342,7 +342,7 @@ $superQuery = 'query PrintProfile($id: ID!, $loadPurchase: Boolean!) {
     __typename
   }';
 
-$contentJson = json_encode(array('operationName' => 'PrintProfile', 'query' => $superQuery, 'variables' => array('id' => $id)));
+$contentJson = json_encode(array('operationName' => 'PrintProfile', 'query' => $superQuery, 'variables' => array('id' => $id, 'loadPurchase' => false)));
 
 $options = array(
     'http' => array(
